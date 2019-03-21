@@ -1,0 +1,33 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 text-center" id="top-bar">
+			<img src="https://cdn2.bigcommerce.com/server100/367cc/products/46401/images/183293/Super_Scraper__13402.1360690411.1280.1280.jpg?c=2" alt="Scraper" />
+			<h1> Tech Crunchy Scrapes Scrapes </h1>
+		</div>
+		<div class="col-md-6 text-center" class="task">
+			<div class="row">
+			  {{#each article_data}}
+				<div class="col-md-9 text-center">
+					<pre>{{this.id}}. {{this.article_title}}
+					</pre>
+				  		<!-- {{this.Date}} -->
+				</div>
+				<div class="col-md-3 text-center">
+					<form class="devour-form button-size">
+						<input input type="hidden" class="article_id" type="text" value={{this.id}}><br>
+						<button type="submit" class="btn btn-default">Save Article</button>
+					</form>
+				</div>
+				{{/unless}}
+			  {{/each}}
+			</div>
+		</div>
+		<div class="col-md-6 text-center" class="task">
+			  {{#each article_data}}
+			  	{{#if this.devoured}}
+			  		<input class="form-control" type="text" placeholder="{{this.id}} . {{this.article_title}}" readonly>
+				{{/if}}
+			  {{/each}}
+		</div>
+	</div>
+</div>
