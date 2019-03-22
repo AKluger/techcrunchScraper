@@ -1,10 +1,32 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Crunchy Tech Scraper</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/saved">Saved Articles</a>
+      </li>
+    </ul>
+  </div>
+	 <form class="form-inline">
+    <button class="btn btn-outline-success" type="button">Scrape Articles!</button>
+  </form>
+</nav>
+{{!-- <div class = "container text-center">
+		<h1>Crunchy Tech Scraper!!</h1>
+</div> --}}
 <div class="container">
 	<div class="row">
 		<div class="col-md-12 text-center" id="top-bar">
 			<img src="https://cdn2.bigcommerce.com/server100/367cc/products/46401/images/183293/Super_Scraper__13402.1360690411.1280.1280.jpg?c=2" alt="Scraper" />
 			<h1> Tech Crunchy Scrapes Scrapes </h1>
 		</div>
-		<div class="col-md-6 text-center" class="task">
+		<div class="col-md-6 offset-3 text-center" class="task">
 			<div class="row">
 			  {{#each article_data}}
 				<div class="col-md-9 text-center">
@@ -13,7 +35,7 @@
 				  		<!-- {{this.Date}} -->
 				</div>
 				<div class="col-md-3 text-center">
-					<form class="devour-form button-size">
+					<form class="save-form button-size">
 						<input input type="hidden" class="article_id" type="text" value={{this.id}}><br>
 						<button type="submit" class="btn btn-default">Save Article</button>
 					</form>
@@ -22,12 +44,12 @@
 			  {{/each}}
 			</div>
 		</div>
-		<div class="col-md-6 text-center" class="task">
+		{{!-- <div class="col-md-6 text-center" class="task">
 			  {{#each article_data}}
-			  	{{#if this.devoured}}
+			  	{{#if this.saved}}
 			  		<input class="form-control" type="text" placeholder="{{this.id}} . {{this.article_title}}" readonly>
 				{{/if}}
 			  {{/each}}
-		</div>
+		</div> --}}
 	</div>
 </div>
