@@ -41,16 +41,23 @@ app.get("/scrape", function(req, res) {
           // In the currently selected element, look at its child elements (i.e., its a-tags),
           // then save the values for any "href" attributes that the child elements may have
           var link = $(element).children("a").attr("href");
+
+        //   var summary = $(element).closest(".post-block__content");
+        //   summary = $(summary).children("p").text();
+        
+        //     console.log(summary);
       
           // Save these results in an object that we'll push into the results array we defined earlier
           results.push({
             title: title,
-            link: link
+            link: link,
+            // summary: summary,
+            saved: false
           });
 
-          var handlebarObject = {
-              article: results
-          };
+        //   var handlebarObject = {
+        //       article: results
+        //   };
         //   res.render("index", handlebarObject);
      
 
@@ -81,7 +88,12 @@ app.get("/articles", function(req, res) {
     db.Article.find({})
       .then(function(dbArticle) {
         // If we were able to successfully find Articles, send them back to the client
-        res.json(dbArticle);
+        // res.json(dbArticle);
+        var newObject = {
+            article: dbArticle
+        };
+    
+        res.render("index", newObject);
       })
       .catch(function(err) {
         // If an error occurred, send it to the client
