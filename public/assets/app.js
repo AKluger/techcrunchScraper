@@ -1,19 +1,30 @@
 $(document).ready(function() {
 
-$("#articleList").empty();
+// $("#articleList").empty();
 
-  $(document).on("click", "#newScrape", function(event) {
+  $("#newScrape").on("click", function(event) {
     event.preventDefault();
     $.get("/scrape").then(function() {
-      location.reload();
-        // this button should scrape articles and if they arent already in the db add them to the articles list then rerender the page
+        console.log("reload!!");
+        window.location.reload();// this button should scrape articles and if they arent already in the db add them to the articles list then rerender the page
   } );
   })
 
-  $(document).on("click", ".saveArticle", function(event) {
-    event.preventDefault();
+  // REFERENCE BURGER SOLUTION
+  // TRY PASSING THE SCRAPE RESULT TO CLIENTSIDE BEFORE DB
+  // $(document).on("click", ".saveArticle", function(event) {
+  //   event.preventDefault();
+  //   $.ajax({
+  //     url: "/saved",
+  //     type: "POST",
+  //     data: {true:data}, 
+  //     success: function(data){
+  //         data = JSON.toString(data);
+
+  //     }
+  // });
     // this button should change the article 'saved' prop from false to true, and remove its parent element...perhaps changing data-attribute of parent
-  })
+  // })
 
     $(document).on("click", "#removeArticle", function(event) {
         event.preventDefault();
@@ -25,4 +36,4 @@ $("#articleList").empty();
             // this button will open notes modal, effectively getting notes where id matches.  this.notes 
         })
 
-      })
+   })

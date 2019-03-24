@@ -18,10 +18,10 @@ var ArticleSchema = new Schema({
     unique: true,
     required: true
   },
-  // summary: {
-  //   type: String,
-  //   required: true
-  // },
+  summary: {
+    type: String,
+    required: true
+  },
 
   saved:  {
     type: Boolean,
