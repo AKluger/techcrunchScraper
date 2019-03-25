@@ -73,11 +73,12 @@ module.exports = function (app) {
             // If an error occurred, log it
             console.log(err);
           });
-          res.redirect("/articles");
+          
       });
 
       // Log the results once you've looped through each of the elements found with cheerio
       console.log(results);
+      res.redirect("/");
     });
 
     // Send a message to the client
@@ -86,7 +87,7 @@ module.exports = function (app) {
 
 
   // Route for getting all Articles from the db
-  app.get("/articles", function (req, res) {
+  app.get("/", function (req, res) {
     // Grab every document in the Articles collection
     db.Article.find({})
       .then(function (dbArticle) {
@@ -170,6 +171,17 @@ module.exports = function (app) {
         res.json(err);
       });
   });
+
+    // Route for updating article to Saved = true
+    app.put("/:id", function (req, res) {
+      // Find all Notes
+      db.Article.findOneAndupdate({ _id: req.params.id }, {"saved": true})
+        .then(() => res.status(200))
+        .catch(function (err) {
+          // If an error occurs, send the error back to the client
+          res.json(err);
+        });
+    });
 
   app.post("/submitNote", function (req, res) {
     // Create a new Note in the db

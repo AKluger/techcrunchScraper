@@ -32,13 +32,15 @@
 		{{!-- <div class="col-md-4 text-center"> --}}
 			<div class="row articleList">
 				{{#each article}}
+				{{#unless this.saved}}
 				<div class="card col-md-4 text-center" style="width: 18rem;" data-id="this.id">
 					<div class="card-body">
 						<h5 class="card-title">{{this.title}}.</h5>
 						<a href="{{this.link}}" class="btn btn-primary" target="_blank">View article</a>
-						<a href="/saved" class="btn btn-danger saveArticle">Save Article</a>
+						<button class="btn btn-danger saveArticle" data-id={{this.id}}>Save Article</button>
 					</div>
 				</div>
+				{{/unless}}
 				{{/each}}
 			</div>
 		{{!-- </div> --}}
