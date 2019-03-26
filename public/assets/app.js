@@ -67,4 +67,20 @@ $(document).ready(function () {
       location.reload();
     });
   })
+
+  $(".addNote").on("click", function (event) {
+    event.preventDefault();
+    let newNote = $("#noteContent").val().trim();
+    // let noteId = (this.getAttribute("data-id"));
+    $.ajax({
+      method: "POST",
+      url: "/addNote",
+      data: newNote
+    })
+    .then(function(data) {
+      // Log the response
+      console.log(data);
+      location.reload();
+    });
+  })
 })
