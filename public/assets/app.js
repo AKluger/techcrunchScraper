@@ -14,29 +14,57 @@ $(document).ready(function () {
   // TRY PASSING THE SCRAPE RESULT TO CLIENTSIDE BEFORE DB
   $(".saveArticle").on("click", function (event) {
     event.preventDefault();
-    const article_id = (this.getAttribute("data-id"));
-    // why isnt this capturing the data-id???
-    console.log(article_id);
+    let articleId = (this.getAttribute("data-id"));
+    console.log(articleId);
 
     $.ajax({
       method: "PUT",
-      url: "/"+ article_id
-    }).then(function(data) {
+      url: "/articles/" + articleId,
+      data: articleId
+    }).then(function (data) {
       // reload page to remove saved article
       location.reload();
     });
 
+  });
+  // this button should change the article 'saved' prop from false to true, and remove its parent element...perhaps changing data-attribute of parent
+
+  $(".deleteArticle").on("click", function (event) {
+    event.preventDefault();
+    let articleId = (this.getAttribute("data-id"));
+    $.ajax({
+      method: "DELETE",
+      url: "/saved/" + articleId
+    })
+    .then(function(data) {
+      // Log the response
+      console.log(data);
+      location.reload();
     });
-    // this button should change the article 'saved' prop from false to true, and remove its parent element...perhaps changing data-attribute of parent
-
-  $(document).on("click", "#removeArticle", function (event) {
-    event.preventDefault();
-    // this button should change article saved prop to false 
   })
 
-  $(document).on("click", "#viewNotes", function (event) {
+
+  $(".viewNotes").on("click", function (event) {
     event.preventDefault();
-    // this button will open notes modal, effectively getting notes where id matches.  this.notes 
+
+    let articleId = (this.getAttribute("data-id"));
+    $("#articleId").text(articleId);
+
+
+
   })
 
+  $(".deleteNote").on("click", function (event) {
+    event.preventDefault();
+    let noteId = (this.getAttribute("data-id"));
+    $.ajax({
+      method: "DELETE",
+      url: "/notes/" + noteId
+    })
+    .then(function(data) {
+      // Log the response
+      console.log(data);
+      location.reload();
+    });
+  })
 })

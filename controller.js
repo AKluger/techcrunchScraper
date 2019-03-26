@@ -9,9 +9,11 @@ const cheerio = require("cheerio");
 // Requiring our models
 const db = require("./models");
 
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/crunchydb";
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/crunchydb", { useNewUrlParser: true });
+mongoose.connect(MONGODB_URI);
 
+// { useNewUrlParser: true }
 
 
 // Routes
@@ -164,7 +166,7 @@ module.exports = function (app) {
           article: dbArticle
         };
         // need to render saved page not index page
-        res.render("index", newObject);
+        res.render("saved", newObject);
       })
       .catch(function (err) {
         // If an error occurs, send the error back to the client
@@ -173,9 +175,8 @@ module.exports = function (app) {
   });
 
     // Route for updating article to Saved = true
-    app.put("/:id", function (req, res) {
-      // Find all Notes
-      db.Article.findOneAndupdate({ _id: req.params.id }, {"saved": true})
+    app.put("/articles/:id", function (req, res) {
+      db.Article.findOneAndUpdate({ _id: req.params.id }, { $set: {"saved": true}})
         .then(() => res.status(200))
         .catch(function (err) {
           // If an error occurs, send the error back to the client
@@ -183,7 +184,7 @@ module.exports = function (app) {
         });
     });
 
-  app.post("/submitNote", function (req, res) {
+  app.post("/addNote", function (req, res) {
     // Create a new Note in the db
     db.Note.create(req.body)
       .then(function (dbNote) {
@@ -203,4 +204,27 @@ module.exports = function (app) {
 
 
   })
+
+  //Route for deleting an article from the db
+app.delete("/saved/:id", function(req, res) {
+  db.Article.deleteOne({ _id: req.params.id })
+  .then(function(removed) {
+    res.json(removed);
+  }).catch(function(err,removed) {
+      // If an error occurred, send it to the client
+        res.json(err);
+    });
+});
+
+
+//Route for deleting a note
+app.delete("/notes/:id", function(req, res) {
+  db.Note.deleteOne({ _id: req.params.id })
+  .then(function(removed) {
+    res.json(removed);
+  }).catch(function(err,removed) {
+      // If an error occurred, send it to the client
+        res.json(err);
+    });
+});
 }
