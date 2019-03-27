@@ -1,7 +1,5 @@
 $(document).ready(function () {
 
-  // $("#articleList").empty();
-
   $("#newScrape").on("click", function (event) {
     event.preventDefault();
     $.get("/scrape").then(function () {
@@ -10,12 +8,10 @@ $(document).ready(function () {
     });
   })
 
-  // REFERENCE BURGER SOLUTION
-  // TRY PASSING THE SCRAPE RESULT TO CLIENTSIDE BEFORE DB
+  // update article saved attribute to true
   $(".saveArticle").on("click", function (event) {
     event.preventDefault();
     let articleId = (this.getAttribute("data-id"));
-    console.log(articleId);
 
     $.ajax({
       method: "PUT",
@@ -27,8 +23,8 @@ $(document).ready(function () {
     });
 
   });
-  // this button should change the article 'saved' prop from false to true, and remove its parent element...perhaps changing data-attribute of parent
 
+  // remove an article
   $(".deleteArticle").on("click", function (event) {
     event.preventDefault();
     let articleId = (this.getAttribute("data-id"));
@@ -36,51 +32,69 @@ $(document).ready(function () {
       method: "DELETE",
       url: "/saved/" + articleId
     })
-    .then(function(data) {
-      // Log the response
-      console.log(data);
-      location.reload();
-    });
+      .then(function (data) {
+        location.reload();
+      });
   })
 
-
+  // function to render the notes in the modal
   $(".viewNotes").on("click", function (event) {
     event.preventDefault();
 
     let articleId = (this.getAttribute("data-id"));
     $("#articleId").text(articleId);
+    $(".notes").empty();
 
+    $.get("/notes/" + articleId).then(function (data) {
 
+      let notes = data[0].notes;
+      if (!notes.length) {
+        let note = $("<li class='list-group-item'>No Notes Yet..</li>")
+        $(".notes").append(note);
+      }
+
+      else {
+        for (let i = 0; i < notes.length; i++) {
+          let note = $("<li class='list-group-item' ></li>").text(notes[i].body)
+            .append($("<button class='btn btn-danger ml-2 deleteNote' data-id=" + notes[i]._id + ">x</button>"))
+          $(".notes").append(note);
+        }
+      }
+    })
 
   })
 
+  // function to delete a note from the DB
   $(".deleteNote").on("click", function (event) {
     event.preventDefault();
-    let noteId = (this.getAttribute("data-id"));
+    let noteId = $(this).data("id")
+    console.log(noteId);
     $.ajax({
       method: "DELETE",
       url: "/notes/" + noteId
     })
-    .then(function(data) {
-      // Log the response
-      console.log(data);
-      location.reload();
-    });
+      .then(function (data) {
+        // Log the response
+        console.log(data);
+        location.reload();
+      });
   })
 
+  // function to grab the new note body and send it to DB
   $(".addNote").on("click", function (event) {
     event.preventDefault();
-    let newNote = $("#noteContent").val().trim();
-    // let noteId = (this.getAttribute("data-id"));
+    let noteMessage = $("#noteContent").val().trim();
+    let newNote = { body: noteMessage };
+    let articleId = $("#articleId").text()
     $.ajax({
       method: "POST",
-      url: "/addNote",
+      url: "/addNote/" + articleId,
       data: newNote
     })
-    .then(function(data) {
-      // Log the response
-      console.log(data);
-      location.reload();
-    });
+      .then(function (data) {
+        // Log the response
+        console.log(data);
+        location.reload();
+      });
   })
 })

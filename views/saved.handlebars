@@ -12,9 +12,6 @@
 		</ul>
 	</div>
 </nav>
-{{!-- <div class = "container text-center">
-		<h1>Crunchy Tech Scraper!!</h1>
-</div> --}}
 <div class="container">
 	<div class="row">
 		<div class="col-md-12 text-center" id="top-bar">
@@ -22,41 +19,47 @@
 				alt="Scraper" />
 			<h1> Crunchy Tech Scraper! </h1>
 		</div>
-		{{!-- <div class="col-md-4 text-center"> --}}
 		<div class="row articleList">
 			{{#each article}}
 			{{#if this.saved}}
-			<div class="card col-md-4 text-center" style="width: 24rem" data-id="this.id">
+			<div class="card col-md-4 text-center" data-id="this.id">
 				<div class="card-body">
 					<h5 class="card-title">{{this.title}}.</h5>
-					<button class="btn btn-primary viewNotes" data-toggle="modal" data-target="#noteModal"
-						data-article={{this.notes}}>View Notes</button>
+					<button class="btn btn-success viewNotes m-3" data-id={{this.id}} data-toggle="modal"
+						data-target="#noteModal" data-notes={{this.note}}>View/Add Notes</button>
 					<button class="btn btn-danger deleteArticle" data-id={{this.id}}>Remove Article</button>
 				</div>
-			</div>
-			{{/if}}
-			{{/each}}
-						<div class="modal" id="noteModal" tabindex="-1" role="dialog">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title">Notes for <span id="articleId"></span></h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body">
-							<p>Modal body text goes here.</p>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-primary">Save changes</button>
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<div class="modal" id="noteModal" tabindex="-1" role="dialog">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">Notes for <span id="articleId"></span></h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<ul class="list-group notes">
+
+								</ul>
+								<form>
+									<div class="form-group">
+										<label for="noteContent">Write your note in the space provided </label>
+										<textarea class="form-control" id="noteContent" rows="2"></textarea>
+									</div>
+									<button type="submit" class="btn btn-primary addNote">Save Note</button>
+								</form>
+							</div>
+							<div class="modal-footer">
+
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+			{{/if}}
+			{{/each}}
 		</div>
-
-		{{!-- </div> --}}
 	</div>
 </div>
