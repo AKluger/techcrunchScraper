@@ -1,6 +1,6 @@
 body {
    /* background-color: #7cffcb; */
-   background-image: linear-gradient(315deg, #7cffcb 0%, #74f2ce 74%);
+   background-image: linear-gradient(315deg, #80FF72 0%, #74f2ce 74%);
     
 }
 .list-group-item {
@@ -14,4 +14,46 @@ h1, .navbar-brand, #newScrape {
 img  {
     max-height:400px;
     max-width: 400px;
+}
+
+.green-btn {
+    border-color: #7cffcb;
+    color: #7cffcb;
+}
+
+.green-btn:hover {
+    /* background-color: background-color: #0cbaba; */
+    background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
+    color: #7cffcb;
+    
+}
+
+.save-btn {
+    border-color: #d387ab;
+    background-color: #d387ab;
+    color: white;
+}
+
+.save-btn:hover {
+    border-color: #d387ab;
+    color: white;
+background-image: linear-gradient(315deg, #d387ab 0%, #b279a7 74%);
+}
+
+.view-btn {
+    color: white;
+background-color: #2a2a72;
+}
+
+.view-btn:hover {
+    background-image: linear-gradient(315deg, #2a2a72 0%, #009ffd 74%);
+    color:white;
+}
+.card {
+    background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
+    color: white;
+}
+
+.modal-content {
+    color: black;
 }

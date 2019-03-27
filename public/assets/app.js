@@ -56,7 +56,7 @@ $(document).ready(function () {
       else {
         for (let i = 0; i < notes.length; i++) {
           let note = $("<li class='list-group-item' ></li>").text(notes[i].body)
-            .append($("<button class='btn btn-danger ml-2 deleteNote' data-id=" + notes[i]._id + ">x</button>"))
+            .append($("<button type='button' class='btn btn-danger ml-2 deleteNote' data-note=" + notes[i]._id + ">x</button>"))
           $(".notes").append(note);
         }
       }
@@ -65,10 +65,10 @@ $(document).ready(function () {
   })
 
   // function to delete a note from the DB
-  $(".deleteNote").on("click", function (event) {
+  // document.on click solved issue of dynamically rendered button and classes
+  $(document).on("click", ".deleteNote", function (event) {
     event.preventDefault();
-    let noteId = $(this).data("id")
-    console.log(noteId);
+    let noteId = $(this).data("note")
     $.ajax({
       method: "DELETE",
       url: "/notes/" + noteId
@@ -97,4 +97,5 @@ $(document).ready(function () {
         location.reload();
       });
   })
+
 })

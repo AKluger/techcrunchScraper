@@ -196,7 +196,7 @@ app.delete("/notes/:id", function(req, res) {
   .then(function(removed) {
     res.json(removed);
   })
-  .catch(function(err,removed) {
+  .catch(function(err) {
       // If an error occurred, send it to the client
         res.json(err);
     });
